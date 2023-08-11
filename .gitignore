@@ -37,3 +37,4 @@ __pycache__/
 functions.zip
 
 venv/
+functions/.venv/
