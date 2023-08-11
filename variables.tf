@@ -5,7 +5,7 @@ variable "owner" {
 
 variable "project_name" {
   type = string
-  default = "time-event-test"
+  default = "timeeventtest"
 }
 
 variable "location" {
