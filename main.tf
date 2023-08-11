@@ -64,27 +64,23 @@ resource "azurerm_application_insights" "app-insights" {
   tags                = var.tags
 }
 
-resource "azurerm_app_service_plan" "example" {
+
+resource "azurerm_service_plan" "example" {
   name                = "azure-functions-test-service-plan"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-
-  sku {
-    tier = "Standard"
-    size = "B1"
-  }
+  os_type             = "Linux"
+  sku_name            = "B1"
 }
 
-resource "azurerm_function_app" "function-app" {
+resource "azurerm_linux_function_app" "function-app" {
   name                       = "fa-${var.owner}-${var.project_name}"
   location                   = var.location
   resource_group_name        = azurerm_resource_group.rg.name
-  app_service_plan_id        = azurerm_app_service_plan.example.id
+  service_plan_id            = azurerm_service_plan.example.id
   storage_account_name       = azurerm_storage_account.storage_account_function.name
   storage_account_access_key = azurerm_storage_account.storage_account_function.primary_access_key
-  os_type                    = "linux"
-  version                    = "~4"
-  enable_builtin_logging     = false
+  builtin_logging_enabled    = false
 
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"       = "python"
@@ -93,12 +89,16 @@ resource "azurerm_function_app" "function-app" {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.app-insights.instrumentation_key
   }
 
-  site_config {
-    linux_fx_version = "python|3.11"
-  }
-
   identity {
     type = "SystemAssigned"
+  }
+
+  site_config {
+
+    application_stack {
+      python_version = "3.10"
+    }
+
   }
 
 }
@@ -106,6 +106,6 @@ resource "azurerm_function_app" "function-app" {
 resource "azurerm_role_assignment" "role_assignment_storage" {
   scope                            = azurerm_storage_account.storage_account_function.id
   role_definition_name             = "Storage Blob Data Contributor"
-  principal_id                     = azurerm_function_app.function-app.identity.0.principal_id
+  principal_id                     = azurerm_linux_function_app.function-app.identity.0.principal_id
   skip_service_principal_aad_check = true
 }
