@@ -64,34 +64,27 @@ resource "azurerm_application_insights" "app-insights" {
   tags                = var.tags
 }
 
-data "azurerm_service_plan" "main" {
-  name                = "asp-${var.owner}-${var.project_name}"
+resource "azurerm_app_service_plan" "example" {
+  name                = "azure-functions-test-service-plan"
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+
+  sku {
+    tier = "Standard"
+    size = "B1"
+  }
 }
 
-
 resource "azurerm_function_app" "function-app" {
-  resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = data.azurerm_service_plan.main.id
-  location            = var.location
-
+  name                       = "fa-${var.owner}-${var.project_name}"
+  location                   = var.location
+  resource_group_name        = azurerm_resource_group.rg.name
+  app_service_plan_id        = azurerm_app_service_plan.example.id
   storage_account_name       = azurerm_storage_account.storage_account_function.name
   storage_account_access_key = azurerm_storage_account.storage_account_function.primary_access_key
-  name                       = "fa-${var.owner}-${var.project_name}"
-  tags                       = var.tags
-
-  enable_builtin_logging = false
-  os_type                = "linux"
-  version                = "~3"
-
-  site_config {
-    linux_fx_version          = "PYTHON|3.11"
-    use_32_bit_worker_process = false
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
+  os_type                    = "linux"
+  version                    = "~4"
+  enable_builtin_logging     = false
 
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"       = "python"
@@ -99,6 +92,15 @@ resource "azurerm_function_app" "function-app" {
     "WEBSITE_RUN_FROM_PACKAGE"       = azurerm_storage_blob.storage_blob_function.url
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.app-insights.instrumentation_key
   }
+
+  site_config {
+    linux_fx_version = "python|3.11"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+
 }
 
 resource "azurerm_role_assignment" "role_assignment_storage" {
