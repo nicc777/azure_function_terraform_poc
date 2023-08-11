@@ -1,5 +1,5 @@
 data "azurerm_resource_group" "rg" {
-  name     = "niels-zeilemaker-sandbox"
+  name     = "nico-sandbox-001"
 }
 
 data "archive_file" "function" {
@@ -9,7 +9,7 @@ data "archive_file" "function" {
 }
 
 resource "azurerm_storage_account" "storage_account_function" {
-  name                     = "st${var.owner}${var.project_name}fn"
+  name                     = "st-${var.owner}-${var.project_name}-fn"
   resource_group_name      = data.azurerm_resource_group.rg.name
   location                 = var.location
   account_tier             = "standard"
@@ -92,7 +92,7 @@ resource "azurerm_function_app" "function-app" {
   version                    = "~3"
 
   site_config {
-    linux_fx_version = "PYTHON|3.7"
+    linux_fx_version = "PYTHON|3.11"
     use_32_bit_worker_process = false
   }
 

@@ -1,16 +1,16 @@
 variable "owner" {
   type = string
-  default = "niels"
+  default = "nico"
 }
 
 variable "project_name" {
   type = string
-  default = "test"
+  default = "time-event-test"
 }
 
 variable "location" {
   type = string
-  default = "westeurope"
+  default = "West Europe"
 }
 
 variable "tags" {
