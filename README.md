@@ -86,3 +86,7 @@ Use terraform to cleanup all deployed resources:
 ```shell
 terraform destroy
 ```
+
+> **Note**
+> It is very likely that not all resources will be destroyed, notably the resource group, since some additional artifacts were created during the operational life of the functions (for example insights data). Therefore, you may need to delete these resources manually or just delete the resource group from the Azure console.
+
