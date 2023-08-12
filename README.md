@@ -52,3 +52,30 @@ Same as listing, but use [jq](https://jqlang.github.io/jq/) to extract the ID's:
 az functionapp function list --resource-group nico-sandbox-001 --name fa-nico-timeeventtest | jq -r ".[].id"
 ```
 
+## Get the application logs
+
+I found the best way for this deployment was to SSH into the functions application and go to the function logs directly.
+
+There are two ways to accomplish this:
+
+Option 1: Use a web browser: The URL is in the format `https://<app-name>.scm.azurewebsites.net/webssh/host``
+
+Option 2: Use the CLI tool to get an SSH session. Details below:
+
+```shell
+# Starts a local SSH proxy
+az webapp create-remote-connection --resource-group nico-sandbox-001 --name fa-nico-timeeventtest
+
+# Connect to the local proxy, using the port and credentials as provided by the previous command
+ssh -p44375 root@localhost
+```
+
+> **warning**
+> On Ubuntu or other systems you may get the error `Unable to negotiate with 127.0.0.1 port 44375: no matching cipher found. Their offer: aes128-cbc,3des-cbc,aes256-cbc`. In order to still force a connection using the older cyphers run the command `ssh -p44375 -c 3des-cbc root@localhost`
+
+Once you have an SSH session, you can navigate to the logs, for example:
+
+```shell
+cd /home/LogFiles/Application/Functions/Function/listener/
+```
+
