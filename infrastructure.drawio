@@ -1,9 +1,12 @@
-<mxfile host="Electron" modified="2023-08-12T05:36:46.731Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="_0PcTpAEMgXZqk4Q-OcA" version="21.1.2" type="device">
+<mxfile host="Electron" modified="2023-08-12T06:22:26.665Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="83zyIq1R4ljQ2GUeksda" version="21.1.2" type="device">
   <diagram name="Page-1" id="EuCpa8Hlnvk2KAVyg0J5">
     <mxGraphModel dx="2074" dy="1189" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="QplM-WZJ82Yex_5dZCln-23" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="160" y="160" width="680" height="800" as="geometry" />
+        </mxCell>
         <mxCell id="QplM-WZJ82Yex_5dZCln-1" value="Resource Group&lt;br&gt;nico-sandbox-001" style="fontStyle=0;verticalAlign=top;align=center;spacingTop=-2;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#919191;strokeWidth=2;dashed=1;container=1;collapsible=0;expand=0;recursiveResize=0;" vertex="1" parent="1">
           <mxGeometry x="200" y="200" width="600" height="320" as="geometry" />
         </mxCell>

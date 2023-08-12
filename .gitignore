@@ -39,3 +39,4 @@ functions.zip
 venv/
 functions/.venv/
 .$infrastructure.drawio.bkp
+.$infrastructure.drawio.dtmp
