@@ -79,3 +79,10 @@ Once you have an SSH session, you can navigate to the logs, for example:
 cd /home/LogFiles/Application/Functions/Function/listener/
 ```
 
+# Cleanup
+
+Use terraform to cleanup all deployed resources:
+
+```shell
+terraform destroy
+```
